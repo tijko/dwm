@@ -2042,11 +2042,21 @@ void
 view(const Arg *arg)
 {
     int n;
-    if ((arg->ui & TAGMASK) == selmon->tagset[selmon->seltags])
+	FILE *fh = fopen("/home/tijko/dwm_log.txt", "w+");
+	// templates for structure arguments;
+	char *ui_value = malloc(256);
+	snprintf(ui_value, 255, "UI: %d\n", arg->ui);	
+	fwrite((void *) ui_value, 255, 1, fh);
+	snprintf(ui_value, 255, "Seltags: %d\n", selmon->seltags);
+	fwrite((void *) ui_value, 255, 1, fh);
+
+    if (arg->ui < 1 || (arg->ui & TAGMASK) == selmon->tagset[selmon->seltags])
         return;
     selmon->seltags ^= 1; /* toggle sel tagset */
     for (n=0; arg->ui >> n > 1; n++)
         ;
+	if (n == 0)
+		n++;
     selmon->view = n;
     if (arg->ui & TAGMASK)
         selmon->tagset[selmon->seltags] = arg->ui & TAGMASK;
