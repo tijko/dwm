@@ -1508,7 +1508,7 @@ setlayout(const Arg *arg)
         selmon->sellt ^= 1;
         selmon->lt[selmon->view] = &layouts[selmon->sellt];
     }
-    if (arg && arg->v) 
+    if (arg && arg->v)
         selmon->lt[selmon->view] = (Layout *)arg->v;
     strncpy(selmon->ltsymbol, selmon->lt[selmon->view]->symbol, sizeof selmon->ltsymbol);
     if (selmon->sel)
